@@ -1,8 +1,10 @@
 package com.codepath.articlesearch
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 
@@ -18,12 +20,32 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
+//        val btnBack = findViewById<Button>(R.id.btnBack)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
         // TODO: Find the views for the screen
+        mediaImageView = findViewById(R.id.mediaImage)
+        titleTextView = findViewById(R.id.mediaTitle)
+        bylineTextView = findViewById(R.id.mediaByline)
+        abstractTextView = findViewById(R.id.mediaAbstract)
 
         // TODO: Get the extra from the Intent
+        val article = intent.getSerializableExtra((ARTICLE_EXTRA)) as Article
 
         // TODO: Set the title, byline, and abstract information from the article
 
+        titleTextView.text = article.headline?.main
+        bylineTextView.text = article.byline?.original
+        abstractTextView.text = article.abstract
+
         // TODO: Load the media image
+        Glide.with(this)
+            .load(article.mediaImageUrl)
+            .into(mediaImageView)
+//        btnBack.setOnClickListener {
+//            finish()
+//        }
     }
+
 }
